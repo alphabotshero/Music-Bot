@@ -17,7 +17,7 @@ module.exports = {
                         { name: 'Bot', value: infos },
                         { name: 'Music', value: music },
                         { name: 'Filters', value: '`bassboost`, `8D`, `vaporwave`, `nightcore`, `phaser`, `tremolo`, `vibrato`, `reverse`, `treble`, `normalizer`, `surrounding`, `pulsator`, `subboost`, `karaoke`, `flanger`, `gate`, `haas`, `mcompand`' },
-                        { name: 'Support', value: 'Link to my support [**server**](https://discord.gg/EKgdpdezCR)' },
+                        { name: 'Support', value: 'Link to my support [**server**](https://discord.gg/VcEDyuh)' },
                         { name: 'Bot Link', value: 'Click here to Invite me [**Invite**](https://discord.com/api/oauth2/authorize?client_id=777772300517900288&permissions=37080128&scope=bot)' },
                     ],
 

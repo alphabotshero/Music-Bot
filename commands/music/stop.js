@@ -32,7 +32,7 @@ module.exports = {
         message.channel.send({
             embed: {
                 color: '#A7DBFB',
-                description: `Stopped playing and left the voice channel.`
+                description: `**Stopped** and cleared the Queue.`
             },
         });
     }
