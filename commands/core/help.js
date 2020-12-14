@@ -13,7 +13,6 @@ module.exports = {
                 embed: {
                     color: '#73C7E8',
                     author: { name: 'Help pannel' },
-                    footer: { text: 'Zapdos' },
                     fields: [
                         { name: 'Bot', value: infos },
                         { name: 'Music', value: music },
