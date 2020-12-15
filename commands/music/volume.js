@@ -28,10 +28,21 @@ module.exports = {
             }
         })
 
-        if (!args[0] || isNaN(args[0])) return message.channel.send(`${client.emotes.error} - Please enter a valid number !`);
+        if (!args[0] || isNaN(args[0])) return message.channel.send ({
+            embed: {
+                color: '#FA1D2F',
+                description: 'Please enter a valid number.'
+            }
+        })
 
-        if (Math.round(parseInt(args[0])) < 1 || Math.round(parseInt(args[0])) > 200) return message.channel.send(`${client.emotes.error} - Please enter a valid number (between 1 and 100) !`);
 
+        if (Math.round(parseInt(args[0])) < 1 || Math.round(parseInt(args[0])) > 200) return message.channel.send ({
+            embed: {
+                color: '#FA1D2F',
+                description: 'Please enter a valid number (between 1 and 200).'
+            }
+        })
+    
         message.channel.send({
             embed: {
                 color: '#DE8DF3',
