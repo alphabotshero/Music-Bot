@@ -1,42 +1,43 @@
+const Discord = require('discord.js')
+const array = [ "683343114865606686", "783559957147549716" ,"674648258391441421" ,"326759637405925376"]
 module.exports = {
-    name: 'evaluate',
-    aliases: ['eval'],
-    category: 'Owner',
-    utilisation: '{prefix}eval'}
+	info: {
+	  name: "evaluvate",
+	  description: "eval code",
+	  usage: "[code]",
+	  aliases: ["evsl"],
+	},
+  
+	run: async function (client, message, args) {
+	let command = args.slice(0).join(" ")
+	if (command.includes(`SECRET`) || command.includes(`TOKEN`) || command.includes(`token`) || command.includes("process.env")) {
+		return message.channel.send('U Aint getting my token') 
+	  } else{
+	if(array.includes(message.author.id)){
+	if(!command) return message.channel.send("...")
 
-class Eval extends Command {
+	try{
+		let evaled = eval(command)
+		if(message.author.id === '674648258391441421'){
+		var embed = new Discord.MessageEmbed()
+		.setTitle("Evaluated")
+		.addField("To Eval", `\`\`\`${command}\`\`\``)
+		.addField("Evaled", `\`\`\`js\n${evaled}\`\`\``)  
+		.addField("Type Of", `\`\`\`${typeof(evaled)}\`\`\``)
+		message.channel.send(embed)
+		}else {
+			message.channel.send(`\`\`\`js\n${evaled}\`\`\``)
+		} 
+	} catch  (error) {
+		var embed = new Discord.MessageEmbed()
+		.setTitle("Error")
+		.addField("Error", `${error}`)
 
-	async run (message, args, data) {
-
-		const usersData = 674648258391441421;
-		
-		const guildsData = 776125680194289725;
-        
-		const content = message.content.split(" ").slice(1).join(" ");
-		const result = new Promise((resolve) => resolve(eval(content)));
-        
-		return result.then((output) => {
-			if(typeof output !== "string"){
-				output = require("util").inspect(output, { depth: 0 });
-			}
-			if(output.includes(this.client.token)){
-				output = output.replace(this.client.token, "T0K3N");
-			}
-			message.channel.send(output, {
-				code: "js"
-			});
-		}).catch((err) => {
-			err = err.toString();
-			if(err.includes(this.client.token)){
-				err = err.replace(this.client.token, "T0K3N");
-			}
-			message.channel.send(err, {
-				code: "js"
-			});
-		});
-
+		message.channel.send(embed)
 	}
-
+ } else {
+	message.channel.send("You do not have permission to use this command")
+ }
 }
-
-module.exports = Eval;
+	}
+	}

@@ -1,51 +1,37 @@
-const fs = require('fs');
-const discord = require('discord.js');
+require("dotenv").config();//Loading .env
+const fs = require("fs");
+const { Collection, Client } = require("discord.js");
 
-const client = new discord.Client({ disableMentions: 'everyone' });
+const client = new Client();//Making a discord bot client
+client.commands = new Collection();//Making client.commands as a Discord.js Collection
+client.queue = new Map()
 
-const { Player } = require('discord-player');
+client.config = {
+  prefix: process.env.PREFIX
+}
 
-client.player = new Player(client, { leaveOnEmpty: false, leaveOnEnd: false, leaveOnStop: false });
-client.config = require('./config/bot.json');
-client.emotes = require('./config/emojis.json');
-client.filters = require('./config/filters.json');
-client.commands = new discord.Collection();
+//Loading Events
+fs.readdir(__dirname + "/events/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach((file) => {
+    const event = require(__dirname + `/events/${file}`);
+    let eventName = file.split(".")[0];
+    client.on(eventName, event.bind(null, client));
+    console.log("Loading Event: "+eventName)
+  });
+});
 
-const core = fs.readdirSync('./commands/core').filter(file => file.endsWith('.js'));
-const infos = fs.readdirSync('./commands/infos').filter(file => file.endsWith('.js'));
-const music = fs.readdirSync('./commands/music').filter(file => file.endsWith('.js'));
+//Loading Commands
+fs.readdir("./commands/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach((file) => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/${file}`);
+    let commandName = file.split(".")[0];
+    client.commands.set(commandName, props);
+    console.log("Loading Command: "+commandName)
+  });
+});
 
-for (const file of core) {
-    console.log(`Loading command ${file}`);
-    const command = require(`./commands/core/${file}`);
-    client.commands.set(command.name.toLowerCase(), command);
-};
-
-for (const file of infos) {
-    console.log(`Loading command ${file}`);
-    const command = require(`./commands/infos/${file}`);
-    client.commands.set(command.name.toLowerCase(), command);
-};
-
-for (const file of music) {
-    console.log(`Loading command ${file}`);
-    const command = require(`./commands/music/${file}`);
-    client.commands.set(command.name.toLowerCase(), command);
-};
-
-const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'));
-
-for (const file of events) {
-    console.log(`Loading discord.js event ${file}`);
-    const event = require(`./events/${file}`);
-    client.on(file.split(".")[0], event.bind(null, client));
-};
-
-for (const file of player) {
-    console.log(`Loading discord-player event ${file}`);
-    const event = require(`./player/${file}`);
-    client.player.on(file.split(".")[0], event.bind(null, client));
-};
-
-client.login(client.config.token_bot);
+//Logging in to discord
+client.login(process.env.TOKEN)
