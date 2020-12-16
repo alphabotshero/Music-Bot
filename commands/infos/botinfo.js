@@ -11,7 +11,7 @@ module.exports = {
         message.channel.send({
             embed: {
                 color: '#2C2F33',
-                author: 'Bot Stats',
+                author: { name: 'Bot stats' },
                 footer: `Created By: ${message.author.tag}`,
                 fields: [
                     {name: 'Bot version', value: '`0.3`', inline: true},
