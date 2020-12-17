@@ -25,7 +25,7 @@ module.exports = {
             return message.channel.send({
                 embed: {
                     color: '#FA1D2F',
-                    description: `**The Queue is Empty** ;-;`,
+                    description: `There is nothing to play.`,
                 },
             });
 
