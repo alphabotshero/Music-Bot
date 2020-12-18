@@ -31,7 +31,7 @@ module.exports = {
         message.channel.send ({
             embed: {
                 color: '#DE8DF3',
-                description: `joined **${message.member.voice.channel.name}** channel, Use **z!p** to play a song.`
+                description: `joined **${message.member.voice.channel.name}** channel, Use **b!p** to play a song.`
             }
         })
     },
