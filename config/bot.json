@@ -1,5 +1,5 @@
 {
-    "game": "b!help and b!play",
-    "prefix": "b!",
+    "game": "b.help and b.play",
+    "prefix": "b.",
     "token_bot": "Nzg4NzkzNzQ3NjA0NjM1Njcw.X9orbA.jCeyvUZGy3vQoVJJfjL1CJeAltI"
 }
