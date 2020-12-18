@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js')
+const uptime = require ('./uptime')
 const os = require('os')
 module.exports = {
     name: 'botinfo',
@@ -7,11 +8,21 @@ module.exports = {
     utilisation: '{prefix}botinfo',
 
     execute(client, message) {
+        let totalSeconds = (client.uptime / 1000);
+        let days = Math.floor(totalSeconds / 86400);
+        totalSeconds %= 86400;
+        let hours = Math.floor(totalSeconds / 3600);
+        totalSeconds %= 3600;
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = Math.floor(totalSeconds % 60);
+        let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
 
         message.channel.send({
+            
             embed: {
                 color: '#2C2F33',
                 author: { name: 'Bot stats' },
+                thumbnail : `${client.user.displayAvatarURL}`,
                 footer: `Created By: ${message.author.tag}`,
                 fields: [
                     {name: 'Bot version', value: '`0.3`', inline: true},
@@ -22,11 +33,10 @@ module.exports = {
                     { name: 'Total Users', value: `${client.users.cache.size}`, inline: true },
                     { name: 'Ping', value: `${Math.round(client.ws.ping)}ms`, inline: true },
                     {name: 'Memory Consumption',value: `Cores: ${os.cpus().length}`, inline: true},
-                    {name: 'Bot Developers', value: '`krishna#1111`', inline: true},
-                    { name: 'Joined Date', value: client.user.createdAt , inline: true },
+                    {name: 'Bot Developers', value: '`krishna and Avi`', inline: true},
+                    { name: 'Uptime', value: `${uptime}`, inline: true },
                 ],
-                thumbnail: 'https://cdn.discordapp.com/avatars/777772300517900288/2711cbc1aa69a174fbc0ca2da1a5e983.png?size=1024',
-                timestamp: new Date(),
+                                timestamp: new Date(),
             },
         });
     },

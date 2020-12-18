@@ -11,7 +11,7 @@ module.exports = {
         message.channel.send ({
             embed: {
                 color: '#DE8DF3',
-                description: `Left **${message.member.voice.channel.name}** channel.`
+                description: `Left **${message.member.voice.channel.name}** channel. use **>join** to summon again.`
             }
         })
     },
